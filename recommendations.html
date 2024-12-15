@@ -13,17 +13,22 @@
         }
 
         .menu-bar {
+            display: flex;
+            justify-content: center;
             background-color: #f1f1f1;
             padding: 10px;
-            text-align: center;
-            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .menu-bar a {
-            margin: 0 10px;
+            margin: 0 15px;
             text-decoration: none;
             color: black;
             font-weight: bold;
+        }
+
+        .menu-bar a:hover {
+            text-decoration: underline;
         }
 
         .content {
@@ -68,10 +73,11 @@
 </head>
 <body>
     <div class="menu-bar">
-        <a href="index.html">Home</a>
+        <a href="home.html">Home</a>
         <a href="map.html">Map</a>
         <a href="statistics.html">Statistics</a>
-        <a href="recommendations.html">Recommendations</a>
+        <a href="#">Recommendations</a>
+        <a href="rainman-anti-smog.html">Rainman's Anti-Smog</a>
     </div>
 
     <div class="content">
