@@ -64,11 +64,11 @@
 <body>
 
     <div class="menu-bar">
-        <a href="#">Home</a>
-        <a href="#">Map</a>
-        <a href="#">Statistics</a>
-        <a href="#">Recommendations</a>
-        <a href="#">Rainman's Anti-Smog</a>
+        <a href="home.html">Home</a>
+        <a href="map.html">Map</a>
+        <a href="statistics.html">Statistics</a>
+        <a href="recommendations.html">Recommendations</a>
+        <a href="rainman-anti-smog.html">Rainman's Anti-Smog</a>
     </div>
 
     <div class="content">
@@ -91,7 +91,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const fetchAQI = (lat, lng) => {
-                const apiKey = 'i_will_send_it_to_telegram';  //  Replace with AQICN API key
+                const apiKey = '5d025ee16632f94038ca29dcb8b407f8931bc74b';  //  Replace with AQICN API key
                 const url = `https://api.waqi.info/feed/geo:${lat};${lng}/?token=${apiKey}`;
 
                 fetch(url)

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendations - Air Quality</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu-bar {
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .menu-bar a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .recommendation {
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .good {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .moderate {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .unhealthy {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .very-unhealthy {
+            background-color: #e69ecb;
+            color: #721c24;
+        }
+
+        .hazardous {
+            background-color: #993d3d;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-bar">
+        <a href="index.html">Home</a>
+        <a href="map.html">Map</a>
+        <a href="statistics.html">Statistics</a>
+        <a href="recommendations.html">Recommendations</a>
+    </div>
+
+    <div class="content">
+        <h1>Air Quality Recommendations</h1>
+        <div id="recommendation-box" class="recommendation">
+            <!-- Рекомендации будут вставлены сюда динамически -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Получаем значение AQI из параметра URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const aqi = parseInt(urlParams.get('aqi')) || 0;
+
+            const recommendationBox = document.getElementById('recommendation-box');
+
+            // Функция для отображения рекомендаций на основе AQI
+            const displayRecommendations = (aqi) => {
+                if (aqi <= 50) {
+                    recommendationBox.className = 'recommendation good';
+                    recommendationBox.innerHTML = `
+                        <h3>Good Air Quality (AQI ≤ 50)</h3>
+                        <p>No harm expected. Spend time outside.<br>
+                        Open windows for ventilation. Engage often in outside activities.<br>
+                        Minimal precautions needed unless you are highly sensitive.</p>`;
+                } else if (aqi <= 100) {
+                    recommendationBox.className = 'recommendation moderate';
+                    recommendationBox.innerHTML = `
+                        <h3>Moderate Air Quality (AQI 51-100)</h3>
+                        <p>Outdoor activities are fine, but reduce prolonged or heavy exertion outdoors.<br>
+                        Keep windows open but avoid peak pollution hours.<br>
+                        Consider using an air purifier indoors if you are sensitive.</p>`;
+                } else if (aqi <= 150) {
+                    recommendationBox.className = 'recommendation unhealthy';
+                    recommendationBox.innerHTML = `
+                        <h3>Unhealthy for Sensitive Groups (AQI 101-150)</h3>
+                        <p>Limit outdoor activity, especially for children, elderly, and those with respiratory or heart issues.<br>
+                        Wear a mask (e.g., N95) outdoors if necessary.<br>
+                        Invest in an air purifier for bedrooms and living areas.</p>`;
+                } else if (aqi <= 200) {
+                    recommendationBox.className = 'recommendation unhealthy';
+                    recommendationBox.innerHTML = `
+                        <h3>Unhealthy Air Quality (AQI 151-200)</h3>
+                        <p>Limit time spent outside.<br>
+                        Close windows and seal gaps to prevent outdoor air from entering.<br>
+                        Use air purifiers indoors. Stay hydrated and consume antioxidant-rich foods.</p>`;
+                } else if (aqi <= 300) {
+                    recommendationBox.className = 'recommendation very-unhealthy';
+                    recommendationBox.innerHTML = `
+                        <h3>Very Unhealthy (AQI 201-300)</h3>
+                        <p>Avoid physical activities outside completely.<br>
+                        Use a mask (N99 or P100) outdoors.<br>
+                        Stay indoors and consider advanced air purification systems.</p>`;
+                } else {
+                    recommendationBox.className = 'recommendation hazardous';
+                    recommendationBox.innerHTML = `
+                        <h3>Hazardous (AQI 301+)</h3>
+                        <p>Strictly remain indoors and avoid opening windows or doors.<br>
+                        Use a high-quality air purifier at all times.<br>
+                        Monitor air quality in real-time and follow government alerts.</p>`;
+                }
+            };
+
+            // Отображаем рекомендации на основе AQI
+            displayRecommendations(aqi);
+        });
+    </script>
+</body>
+</html>
