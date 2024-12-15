@@ -6,11 +6,30 @@
         <title>AQI Statistics</title>
         <style>
             body {
-                font-family: Arial, sans-serif;
-                text-align: center;
-                margin: 0;
-                padding: 0;
-            }
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu-bar {
+            display: flex;
+            justify-content: center;
+            background-color: #f1f1f1;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-bar a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        .menu-bar a:hover {
+            text-decoration: underline;
+        }
 
             .container {
                 margin: 20px auto;
@@ -48,6 +67,15 @@
         </style>
     </head>
     <body>
+        <body>
+        <div class="menu-bar">
+            <a href="home.html">Home</a>
+            <a href="map.html">Map</a>
+            <a href="#">Statistics</a>
+            <a href="recommendations.html">Recommendations</a>
+            <a href="rainman-anti-smog.html">Rainman's Anti-Smog</a>
+        </div>
+
         <div class="container">
             <h1>AQI Statistics</h1>
             <form id="statistics-form">
@@ -83,13 +111,70 @@
         <script>
             // Mock AQI data
             const mockAQIData = [
+                // Ноябрь
+                { date: '2024-11-01', aqi: 25 },
+                { date: '2024-11-02', aqi: 30 },
+                { date: '2024-11-03', aqi: 28 },
+                { date: '2024-11-04', aqi: 35 },
+                { date: '2024-11-05', aqi: 40 },
+                { date: '2024-11-06', aqi: 45 },
+                { date: '2024-11-07', aqi: 38 },
+                { date: '2024-11-08', aqi: 50 },
+                { date: '2024-11-09', aqi: 55 },
+                { date: '2024-11-10', aqi: 30 },
+                { date: '2024-11-11', aqi: 35 },
+                { date: '2024-11-12', aqi: 40 },
+                { date: '2024-11-13', aqi: 60 },
+                { date: '2024-11-14', aqi: 45 },
+                { date: '2024-11-15', aqi: 50 },
+                { date: '2024-11-16', aqi: 55 },
+                { date: '2024-11-17', aqi: 35 },
+                { date: '2024-11-18', aqi: 25 },
+                { date: '2024-11-19', aqi: 30 },
+                { date: '2024-11-20', aqi: 28 },
+                { date: '2024-11-21', aqi: 33 },
+                { date: '2024-11-22', aqi: 40 },
+                { date: '2024-11-23', aqi: 45 },
+                { date: '2024-11-24', aqi: 50 },
+                { date: '2024-11-25', aqi: 55 },
+                { date: '2024-11-26', aqi: 35 },
+                { date: '2024-11-27', aqi: 38 },
+                { date: '2024-11-28', aqi: 40 },
+                { date: '2024-11-29', aqi: 45 },
+                { date: '2024-11-30', aqi: 30 },
+
+                // Декабрь
                 { date: '2024-12-01', aqi: 35 },
                 { date: '2024-12-02', aqi: 45 },
                 { date: '2024-12-03', aqi: 50 },
                 { date: '2024-12-04', aqi: 60 },
                 { date: '2024-12-05', aqi: 40 },
                 { date: '2024-12-06', aqi: 55 },
-                { date: '2024-12-07', aqi: 30 }
+                { date: '2024-12-07', aqi: 30 },
+                { date: '2024-12-08', aqi: 45 },
+                { date: '2024-12-09', aqi: 50 },
+                { date: '2024-12-10', aqi: 35 },
+                { date: '2024-12-11', aqi: 38 },
+                { date: '2024-12-12', aqi: 55 },
+                { date: '2024-12-13', aqi: 40 },
+                { date: '2024-12-14', aqi: 30 },
+                { date: '2024-12-15', aqi: 28 },
+                { date: '2024-12-16', aqi: 33 },
+                { date: '2024-12-17', aqi: 45 },
+                { date: '2024-12-18', aqi: 50 },
+                { date: '2024-12-19', aqi: 60 },
+                { date: '2024-12-20', aqi: 55 },
+                { date: '2024-12-21', aqi: 40 },
+                { date: '2024-12-22', aqi: 35 },
+                { date: '2024-12-23', aqi: 25 },
+                { date: '2024-12-24', aqi: 30 },
+                { date: '2024-12-25', aqi: 28 },
+                { date: '2024-12-26', aqi: 35 },
+                { date: '2024-12-27', aqi: 38 },
+                { date: '2024-12-28', aqi: 45 },
+                { date: '2024-12-29', aqi: 50 },
+                { date: '2024-12-30', aqi: 55 },
+                { date: '2024-12-31', aqi: 60 }
             ];
 
             document.getElementById('statistics-form').addEventListener('submit', function (e) {
