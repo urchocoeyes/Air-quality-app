@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality Index (AQI)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu-bar {
+            display: flex;
+            justify-content: center;
+            background-color: #f1f1f1;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-bar a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        .menu-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            margin-top: 200px;
+        }
+
+        .aqi-box {
+            font-size: 4rem;
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            display: inline-block;
+            background-color: #00cc66; /* Green background */
+        }
+
+        .aqi-text {
+            font-size: 1.5rem;
+            margin: 10px 0;
+        }
+
+        .location-text {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0056b3; /* Blue color */
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-bar">
+        <a href="#">Home</a>
+        <a href="map.html">Map</a>
+        <a href="#">Statistics</a>
+        <a href="#">Recommendations</a>
+        <a href="#">Rainman's Anti-Smog</a>
+    </div>
+
+    <div class="content">
+        <div class="aqi-box">33</div>
+        <p class="aqi-text">Air Quality Index: <span style="color: #00cc66;">Good</span></p>
+        <p class="location-text">Almaty Tole Bi 59, 15:00</p>
+        <a href="#">Air Quality Index and Categories</a>
+    </div>
+</body>
+</html>

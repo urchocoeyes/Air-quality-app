@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality Index (AQI) - Home</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+
+        .content {
+            text-align: center;
+        }
+
+        .aqi-box {
+            font-size: 3rem;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .good {
+            background-color: green;
+        }
+
+        .moderate {
+            background-color: yellow;
+        }
+
+        .unhealthy {
+            background-color: red;
+        }
+
+        .very-unhealthy {
+    background-color: red;
+}
+
+
+        .menu-bar {
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .menu-bar a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-bar">
+        <a href="home.html">Home</a>
+        <a href="#">Map</a>
+        <a href="#">Statistics</a>
+        <a href="#">Recommendations</a>
+        <a href="#">Rainman's Anti-Smog</a>
+    </div>
+
+    <div class="content">
+        <h1>Air Quality Index (AQI)</h1>
+        <p>Click on the map to analyze AQI at a location.</p>
+        <div id="map"></div>
+
+        <div class="aqi-box good" id="aqi-box">33</div>
+        <p>Air Quality Index: <span id="aqi-status">Good</span></p>
+        <p>Location: <span id="location-name">Almaty, Tole Bi 59, 15:00</span></p>
+        <br>
+        <a href="#" id="more-info-link">Air Quality Index and Categories</a>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 Air Quality Web App</p>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const fetchAQI = (lat, lng) => {
+                const apiKey = '5d025ee16632f94038ca29dcb8b407f8931bc74b';  //  Replace with AQICN API key
+                const url = `https://api.waqi.info/feed/geo:${lat};${lng}/?token=${apiKey}`;
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("API Response:", data);  
+
+                        if (data.status === 'ok') {
+                            const aqi = data.data.aqi; // AQI value
+                            console.log('AQI:', aqi);  
+
+                            displayAQI(aqi);  
+                        } else {
+                            console.error('Error fetching AQI data:', data.data);
+                            displayAQI(0);  
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching AQI data:', error);
+                        displayAQI(0);  
+                    });
+            };
+
+            const displayAQI = (aqi) => {
+                const aqiBox = document.getElementById('aqi-box');
+                const aqiStatus = document.getElementById('aqi-status');
+
+                if (!aqiBox || !aqiStatus) {
+                    console.error('AQI elements not found in the DOM');
+                    return; 
+                }
+
+                aqiBox.textContent = aqi;
+
+                if (aqi <= 50) {
+                    aqiBox.className = 'aqi-box good';
+                    aqiStatus.textContent = 'Good';
+                } else if (aqi <= 100) {
+                    aqiBox.className = 'aqi-box moderate';
+                    aqiStatus.textContent = 'Moderate';
+                } else if (aqi <= 150) {
+                    aqiBox.className = 'aqi-box unhealthy';
+                    aqiStatus.textContent = 'Unhealthy for Sensitive Groups';
+                } else if (aqi <= 200) {
+                    aqiBox.className = 'aqi-box unhealthy';
+                    aqiStatus.textContent = 'Unhealthy';
+                } else if (aqi <= 300) {
+                    aqiBox.className = 'aqi-box very-unhealthy';
+                    aqiStatus.textContent = 'Very Unhealthy';
+                } else {
+                    aqiBox.className = 'aqi-box hazardous';
+                    aqiStatus.textContent = 'Hazardous';
+                }
+            };
+
+            const map = L.map('map').setView([43.222, 76.851], 12);  // Default location (Almaty)
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+            }).addTo(map);
+
+            map.on('click', function (e) {
+                const lat = e.latlng.lat;
+                const lng = e.latlng.lng;
+
+                document.getElementById('location-name').textContent = `Selected Location: Lat: ${lat}, Lng: ${lng}`;
+
+                fetchAQI(lat, lng);  
+            });
+
+            fetchAQI(43.222, 76.851);  // Fetch AQI for default location, Initial Load
+        });
+    </script>
+</body>
+</html>

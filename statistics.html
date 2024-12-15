@@ -1,0 +1,162 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AQI Statistics</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                margin: 0;
+                padding: 0;
+            }
+
+            .container {
+                margin: 20px auto;
+                width: 80%;
+                max-width: 600px;
+            }
+
+            .date-input {
+                margin: 10px 0;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            table, th, td {
+                border: 1px solid #ddd;
+            }
+
+            th, td {
+                padding: 10px;
+                text-align: center;
+            }
+
+            th {
+                background-color: #f4f4f4;
+            }
+
+            .chart-container {
+                margin: 20px auto;
+                max-width: 700px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>AQI Statistics</h1>
+            <form id="statistics-form">
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date" class="date-input" required>
+                <label for="end-date">End Date:</label>
+                <input type="date" id="end-date" class="date-input" required>
+                <br>
+                <button type="submit">Get Statistics</button>
+            </form>
+
+            <div id="statistics-output">
+                <h2>Statistics</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Statistic</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody id="statistics-table-body">
+                        <!-- Data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="aqi-chart"></canvas>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            // Mock AQI data
+            const mockAQIData = [
+                { date: '2024-12-01', aqi: 35 },
+                { date: '2024-12-02', aqi: 45 },
+                { date: '2024-12-03', aqi: 50 },
+                { date: '2024-12-04', aqi: 60 },
+                { date: '2024-12-05', aqi: 40 },
+                { date: '2024-12-06', aqi: 55 },
+                { date: '2024-12-07', aqi: 30 }
+            ];
+
+            document.getElementById('statistics-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const startDate = document.getElementById('start-date').value;
+                const endDate = document.getElementById('end-date').value;
+
+                if (!startDate || !endDate) {
+                    alert("Please select both start and end dates.");
+                    return;
+                }
+
+                // Filter AQI data for the selected date range
+                const filteredData = mockAQIData.filter(entry => entry.date >= startDate && entry.date <= endDate);
+
+                if (filteredData.length === 0) {
+                    alert("No data available for the selected date range.");
+                    return;
+                }
+
+                // Calculate statistics
+                const aqiValues = filteredData.map(entry => entry.aqi);
+                const averageAQI = (aqiValues.reduce((sum, aqi) => sum + aqi, 0) / aqiValues.length).toFixed(2);
+                const maxAQI = Math.max(...aqiValues);
+                const minAQI = Math.min(...aqiValues);
+
+                // Populate the statistics table
+                const tableBody = document.getElementById('statistics-table-body');
+                tableBody.innerHTML = `
+                    <tr><td>Average AQI</td><td>${averageAQI}</td></tr>
+                    <tr><td>Maximum AQI</td><td>${maxAQI}</td></tr>
+                    <tr><td>Minimum AQI</td><td>${minAQI}</td></tr>
+                `;
+
+                // Render the chart
+                renderChart(filteredData);
+            });
+
+            function renderChart(filteredData) {
+                const ctx = document.getElementById('aqi-chart').getContext('2d');
+                const labels = filteredData.map(entry => entry.date);
+                const values = filteredData.map(entry => entry.aqi);
+
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Daily AQI',
+                            data: values,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top'
+                            }
+                        }
+                    }
+                });
+            }
+        </script>
+    </body>
+    </html>
