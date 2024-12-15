@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Sign Up - Air Quality Index (AQI)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .form-group input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .switch-link {
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        .switch-link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .switch-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAYe5jvgkmHy5NQLcPGfZdjjBPWoMbd0S8",
+            authDomain: "authentication-f16c4.firebaseapp.com",
+            projectId: "authentication-f16c4",
+            storageBucket: "authentication-f16c4.appspot.com",
+            messagingSenderId: "815751414670",
+            appId: "1:815751414670:web:40cc4abd5d57c58e379adf"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Login form submission
+            document.getElementById('login-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const email = document.getElementById('login-email').value.trim();
+                const password = document.getElementById('login-password').value.trim();
+
+                signInWithEmailAndPassword(auth, email, password)
+                    .then(userCredential => {
+                        alert('Login Successful!');
+                        window.location.href = 'index.html'; // Redirect to AQI home page
+                    })
+                    .catch(error => {
+                        alert('Login Failed: ' + error.message);
+                    });
+            });
+
+            // Sign Up form submission
+            document.getElementById('signup-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const email = document.getElementById('signup-email').value.trim();
+                const password = document.getElementById('signup-password').value.trim();
+                const confirmPassword = document.getElementById('signup-confirm-password').value.trim();
+
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+
+                createUserWithEmailAndPassword(auth, email, password)
+                    .then(userCredential => {
+                        alert('Sign Up Successful! You can now log in.');
+                        document.getElementById('signup-container').style.display = 'none';
+                        document.getElementById('login-container').style.display = 'block';
+                    })
+                    .catch(error => {
+                        alert('Sign Up Failed: ' + error.message);
+                    });
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <!-- Login Page -->
+    <div class="container" id="login-container">
+        <h2>Login to Air Quality Web App</h2>
+        <form action="#" method="POST" id="login-form">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="login-email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Login">
+            </div>
+        </form>
+        <div class="switch-link">
+            <p>Don't have an account? <a href="#" id="switch-to-signup">Sign Up</a></p>
+        </div>
+    </div>
+
+    <!-- Sign Up Page -->
+    <div class="container" id="signup-container" style="display: none;">
+        <h2>Create an Account</h2>
+        <form action="#" method="POST" id="signup-form">
+            <div class="form-group">
+                <label for="signup-email">Email Address</label>
+                <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" name="password" placeholder="Create a password" required>
+            </div>
+            <div class="form-group">
+                <label for="signup-confirm-password">Confirm Password</label>
+                <input type="password" id="signup-confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Sign Up">
+            </div>
+        </form>
+        <div class="switch-link">
+            <p>Already have an account? <a href="#" id="switch-to-login">Login</a></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 Air Quality Web App</p>
+    </div>
+
+    <script>
+        // Switching between Login and Sign Up forms
+        document.getElementById('switch-to-signup').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('login-container').style.display = 'none';
+            document.getElementById('signup-container').style.display = 'block';
+        });
+
+        document.getElementById('switch-to-login').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('signup-container').style.display = 'none';
+            document.getElementById('login-container').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
