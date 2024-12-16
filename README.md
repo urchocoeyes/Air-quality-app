@@ -68,7 +68,31 @@ The application is built around several key features, each addressing specific u
 - **As a user**, I want to donate to the project so that I can support the initiative.
 
 ## Contributions
-Tolebek Nazym
-Amangeldinova Saya
-Igenbek Zhaina
-Tletay Azamat
+- Tolebek Nazym
+- Amangeldinova Saya
+- Igenbek Zhaina
+- Tletay Azamat
+
+## Screenshots
+
+### Authorization
+![Create account/Already have an account](screenshots/create_login_account.jpeg)
+![Sign Up](screenshots/sign_up.jpeg)
+![Confirmation for sign up](screenshots/create_login_account.jpeg)
+![Sign In](screenshots/sign_in.jpeg)
+
+### Home Tab
+![Home Tab](screenshots/home_default.jpeg)
+
+### Map Tab
+![Map Tab](screenshots/map.jpeg)
+
+### Statistics Tab
+![Statistics Tab](screenshots/statistics.jpeg)
+
+### Recommendations Tab
+![Recommendations Tab](screenshots/recommendations.jpeg)
+
+### Rainman's Anti-Smog Project Tab
+![News and Progress](screenshots/anti_smog_news_and_progress.jpeg)
+![Donate to Project](screenshots/anti_smog_donation.jpeg)
