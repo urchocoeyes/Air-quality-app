@@ -72,5 +72,3 @@ Tolebek Nazym
 Amangeldinova Saya
 Igenbek Zhaina
 Tletay Azamat
-
-"D:\Сая\Рабочий стол\1.jpg"
